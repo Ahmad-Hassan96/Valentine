@@ -635,4 +635,50 @@ document.getElementById('book').addEventListener('touchend', e=>{
 
 document.addEventListener('keydown', e=>{
   if(e.key==='ArrowRight' && current<total-1){current++; showPage(current,'next'); spawnHearts();}
-  if(e.key==='ArrowLeft'  && current>0)     {current--; showPage(current,'p
+  if(e.key==='ArrowLeft'  && current>0)     {current--; showPage(current,'prev'); spawnHearts();}
+});
+
+function spawnHearts(){
+  const emojis=['❤️','🌹','✨','💕','🌸'];
+  const cx=innerWidth/2, cy=innerHeight/2;
+  for(let i=0;i<6;i++){
+    setTimeout(()=>{
+      const h=document.createElement('div');
+      h.className='heart-burst';
+      h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      const angle=Math.random()*Math.PI*2, dist=80+Math.random()*110;
+      h.style.setProperty('--tx',Math.cos(angle)*dist+'px');
+      h.style.setProperty('--ty',Math.sin(angle)*dist+'px');
+      h.style.left=cx-10+'px'; h.style.top=cy-10+'px';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),1200);
+    },i*60);
+  }
+}
+
+/* ===== OPEN BUTTON — iOS-safe audio ===== */
+document.getElementById('openBtn').addEventListener('click', function(){
+  const overlay = document.getElementById('overlay');
+  overlay.style.transition = 'opacity 0.8s ease';
+  overlay.style.opacity = '0';
+  setTimeout(()=>{ overlay.style.display='none'; }, 820);
+
+  const audio = document.getElementById('bgm');
+  audio.volume = 0.85;
+  audio.load();
+  const p = audio.play();
+  if(p !== undefined){
+    p.catch(()=>{
+      document.addEventListener('touchstart', function retry(){
+        audio.play();
+        document.removeEventListener('touchstart', retry);
+      }, {once:true});
+    });
+  }
+  spawnHearts();
+});
+
+updateNav();
+</script>
+</body>
+</html>
