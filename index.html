@@ -1,114 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Zainab ❤️</title>
 
 <style>
-:root{
-  --pink1:#ff9a9e;
-  --pink2:#fad0c4;
-  --glass:rgba(255,255,255,.22);
-  --stroke:rgba(255,255,255,.35);
-  --txt:#ffffff;
-}
-*{box-sizing:border-box}
+/* ====== GLOBAL ====== */
 body{
   margin:0;
   min-height:100vh;
   display:flex;
-  justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,var(--pink1),var(--pink2));
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--txt);
+  justify-content:center;
+  background:#f3e6d8;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+/* ====== BOOK ====== */
+.book{
+  width:92%;
+  max-width:420px;
+  height:560px;
+  background:#fdfaf6;
+  border-radius:18px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.25),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+  position:relative;
   overflow:hidden;
 }
 
-/* floating hearts */
-.heart{
-  position:fixed;
-  bottom:-30px;
-  animation:float 6s linear forwards;
-  opacity:.8;
-}
-@keyframes float{
-  to{transform:translateY(-120vh);opacity:0}
-}
-
-/* card */
-.card{
-  width:92%;
-  max-width:420px;
-  background:var(--glass);
-  backdrop-filter:blur(18px);
-  border:1px solid var(--stroke);
-  border-radius:26px;
-  padding:22px;
-  text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,.25);
-  animation:fadeIn .6s ease;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(.95)}
-  to{opacity:1;transform:scale(1)}
+/* spine */
+.book::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:18px;
+  height:100%;
+  background:linear-gradient(to right,#e0c7a6,#f7e7d1);
 }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
-  font-size:13px;
-  opacity:.9;
-}
-
-.music{
-  padding:8px 12px;
-  border-radius:20px;
-  border:1px solid var(--stroke);
-  cursor:pointer;
-}
-
-h1{
-  margin:6px 0 6px;
-  font-size:28px;
-}
-.subtitle{
-  font-size:14px;
-  opacity:.9;
-  margin-bottom:14px;
-}
-
-.stage{
-  background:rgba(255,255,255,.18);
-  border:1px solid var(--stroke);
-  border-radius:22px;
-  padding:18px 16px;
-  min-height:220px;
+/* ====== PAGE ====== */
+.page{
+  position:absolute;
+  inset:0;
+  padding:36px 28px 32px 46px;
+  background:#fdfaf6;
+  transform-origin:left center;
+  transition:transform .6s ease;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  animation:fadeIn .4s ease;
 }
 
-.emoji{
-  font-size:44px;
-  margin-bottom:6px;
+.page.hidden{
+  transform:rotateY(-180deg);
 }
-.title{
+
+.page h1{
+  font-size:26px;
+  margin:0 0 12px;
+  color:#8b4b2e;
+}
+
+.page h2{
   font-size:18px;
-  font-weight:700;
-  margin-bottom:8px;
+  margin:0 0 10px;
+  color:#8b4b2e;
 }
-.text{
-  font-size:15px;
-  line-height:1.65;
+
+.page p{
+  font-size:16px;
+  line-height:1.75;
+  color:#3b2f2f;
   white-space:pre-line;
 }
 
+/* ====== FOOTER ====== */
+.footer{
+  margin-top:auto;
+  font-size:13px;
+  color:#7a6a5f;
+  text-align:right;
+}
+
+/* ====== OVERLAY ====== */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.overlayCard{
+  background:#fff;
+  padding:26px;
+  border-radius:18px;
+  max-width:420px;
+  width:90%;
+  text-align:center;
+}
+.overlayCard h2{
+  color:#8b4b2e;
+  margin-bottom:10px;
+}
+.overlayCard p{
+  font-size:14px;
+  line-height:1.6;
+  color:#555;
+}
+button{
+  margin-top:14px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#8b4b2e;
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+}
+
+/* ====== HINT ====== */
 .hint{
+  position:absolute;
+  bottom:14px;
+  right:18px;
+  font-size:12px;
+  color:#7a6a5f;
+}
+
+/* ====== AUDIO ====== */
+audio{display:none}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="overlay">
+  <div class="overlayCard">
+    <h2>A Little Book for Zainab</h2>
+    <p>
+      Some feelings deserve more than a message.<br>
+      So I turned them into a book.
+    </p>
+    <button id="openBook">Open the book ❤️</button>
+  </div>
+</div>
+
+<div class="book" id="book">
+
+  <!-- PAGE 1 -->
+  <div class="page" id="p0">
+    <h1>For Zainab</h1>
+    <p>
+      This is a small book.
+      Not because the feelings are small,
+      but because some things are better
+      said quietly.
+    </p>
+    <div class="footer">— Page 1</div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page hidden" id="p1">
+    <h2>Comfort</h2>
+    <p>
+      You feel like calm in a loud world.
+      Like a place where thoughts slow down.
+      Being around you feels natural.
+    </p>
+    <div class="footer">— Page 2</div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page hidden" id="p2">
+    <h2>Presence</h2>
+    <p>
+      You don’t try to be special.
+      You just are.
+      And somehow, that’s what makes
+      everything around you better.
+    </p>
+    <div class="footer">— Page 3</div>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="page hidden" id="p3">
+    <h2>Truth</h2>
+    <p>
+      There are many people in the world.
+      Few make life feel lighter.
+      You’re one of those people to me.
+    </p>
+    <div class="footer">— Page 4</div>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div class="page hidden" id="p4">
+    <h2>Valentine’s Day</h2>
+    <p>
+      Happy Valentine’s Day, Zainab.
+      I hope today reminds you
+      how valued you are —
+      not just today,
+      but always.
+    </p>
+    <div class="footer">— End</div>
+  </div>
+
+  <div class="hint">Swipe → to turn page</div>
+</div>
+
+<audio id="bgm" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const pages = [...document.querySelectorAll(".page")];
+let current = 0;
+
+function showPage(n){
+  pages.forEach((p,i)=>{
+    p.classList.toggle("hidden", i > n);
+  });
+}
+
+let startX=0;
+document.getElementById("book").addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+});
+document.getElementById("book").addEventListener("touchend",e=>{
+  const dx = e.changedTouches[0].clientX - startX;
+  if(dx < -40 && current < pages.length-1){
+    current++;
+    showPage(current);
+  }
+  if(dx > 40 && current > 0){
+    current--;
+    showPage(current);
+  }
+});
+
+/* start */
+document.getElementById("openBook").onclick=async()=>{
+  document.getElementById("overlay").style.display="none";
+  try{ await document.getElementById("bgm").play(); }catch(e){}
+};
+</script>
+
+</body>
+</html>
   margin-top:12px;
   display:flex;
   justify-content:space-between;
