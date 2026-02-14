@@ -1,527 +1,293 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For Zainab ❤️</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Zainab ❤️</title>
 
-  <style>
-    :root{
-      --bg1:#ff7aa8;
-      --bg2:#ff9bd6;
-      --bg3:#ffd1e8;
-      --card: rgba(255,255,255,.18);
-      --stroke: rgba(255,255,255,.28);
-      --text: #ffffff;
-      --shadow: 0 20px 60px rgba(0,0,0,.22);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: radial-gradient(1200px 700px at 20% 10%, var(--bg3), transparent 60%),
-                  radial-gradient(900px 600px at 80% 30%, #ffe6f2, transparent 55%),
-                  linear-gradient(135deg, var(--bg1), var(--bg2));
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      overflow:hidden;
-      padding:18px;
-    }
+<style>
+:root{
+  --pink1:#ff9a9e;
+  --pink2:#fad0c4;
+  --glass:rgba(255,255,255,.22);
+  --stroke:rgba(255,255,255,.35);
+  --txt:#ffffff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,var(--pink1),var(--pink2));
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--txt);
+  overflow:hidden;
+}
 
-    /* Floating hearts background */
-    .hearts{
-      position:fixed; inset:0; pointer-events:none; overflow:hidden;
-      filter: drop-shadow(0 8px 10px rgba(0,0,0,.12));
-    }
-    .heart{
-      position:absolute;
-      bottom:-40px;
-      font-size: 18px;
-      opacity:.85;
-      animation: floatUp linear forwards;
-      transform: translateX(0);
-    }
-    @keyframes floatUp{
-      from{ transform: translateY(0) translateX(0) scale(1); opacity:.9; }
-      to{ transform: translateY(-120vh) translateX(var(--drift)) scale(1.35); opacity:0; }
-    }
+/* floating hearts */
+.heart{
+  position:fixed;
+  bottom:-30px;
+  animation:float 6s linear forwards;
+  opacity:.8;
+}
+@keyframes float{
+  to{transform:translateY(-120vh);opacity:0}
+}
 
-    .wrap{
-      width:min(440px, 92vw);
-      position:relative;
-    }
+/* card */
+.card{
+  width:92%;
+  max-width:420px;
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--stroke);
+  border-radius:26px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  animation:fadeIn .6s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
+}
 
-    .card{
-      background: var(--card);
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      border-radius: 26px;
-      padding: 22px 18px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      position:relative;
-      overflow:hidden;
-    }
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+  font-size:13px;
+  opacity:.9;
+}
 
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
+.music{
+  padding:8px 12px;
+  border-radius:20px;
+  border:1px solid var(--stroke);
+  cursor:pointer;
+}
 
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.16);
-      border:1px solid rgba(255,255,255,.22);
-      font-size: 13px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(255,255,255,.18);
-      animation: pulse 1.2s infinite;
-    }
-    @keyframes pulse{
-      0%,100%{ transform:scale(1); opacity:.85;}
-      50%{ transform:scale(1.18); opacity:1;}
-    }
+h1{
+  margin:6px 0 6px;
+  font-size:28px;
+}
+.subtitle{
+  font-size:14px;
+  opacity:.9;
+  margin-bottom:14px;
+}
 
-    .musicBtn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.22);
-      color:#fff;
-      font-size:13px;
-      cursor:pointer;
-      user-select:none;
-    }
-    .musicBtn:active{ transform: scale(.98); }
+.stage{
+  background:rgba(255,255,255,.18);
+  border:1px solid var(--stroke);
+  border-radius:22px;
+  padding:18px 16px;
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  animation:fadeIn .4s ease;
+}
 
-    h1{
-      margin: 6px 0 2px;
-      font-size: 26px;
-      letter-spacing: .2px;
-    }
-    .sub{
-      margin:0 0 14px;
-      opacity:.92;
-      font-size: 14px;
-      line-height: 1.45;
-    }
+.emoji{
+  font-size:44px;
+  margin-bottom:6px;
+}
+.title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.text{
+  font-size:15px;
+  line-height:1.65;
+  white-space:pre-line;
+}
 
-    .stage{
-      position:relative;
-      border-radius: 22px;
-      padding: 18px 16px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      overflow:hidden;
-      min-height: 210px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
+.hint{
+  margin-top:12px;
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  opacity:.85;
+}
 
-    .bigEmoji{
-      font-size: 44px;
-      line-height: 1;
-      margin-bottom: 8px;
-      animation: pop 700ms ease-out;
-    }
-    @keyframes pop{
-      0%{ transform:scale(.6); opacity:0; }
-      70%{ transform:scale(1.08); opacity:1; }
-      100%{ transform:scale(1); }
-    }
+button{
+  margin-top:14px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:700;
+  background:#fff;
+  color:#ff4f7a;
+}
 
-    .title{
-      font-size: 18px;
-      margin:0 0 8px;
-      font-weight: 700;
-    }
-    .msg{
-      margin:0;
-      font-size: 15px;
-      line-height: 1.6;
-      opacity:.98;
-      white-space: pre-line;
-    }
+/* overlay */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.overlayCard{
+  background:var(--glass);
+  border:1px solid var(--stroke);
+  border-radius:26px;
+  padding:26px;
+  text-align:center;
+  max-width:420px;
+  width:90%;
+}
+.overlayCard h2{margin:8px 0 10px}
+.overlayCard p{font-size:14px;line-height:1.6;opacity:.95}
 
-    /* Sparkle overlay */
-    .sparkles{
-      position:absolute; inset:0; pointer-events:none;
-    }
-    .sparkle{
-      position:absolute;
-      width:6px; height:6px;
-      border-radius:50%;
-      background: rgba(255,255,255,.95);
-      box-shadow: 0 0 18px rgba(255,255,255,.9);
-      animation: twinkle 1.3s infinite ease-in-out;
-      opacity:.75;
-    }
-    @keyframes twinkle{
-      0%,100%{ transform: scale(.7); opacity:.35; }
-      50%{ transform: scale(1.2); opacity:.95; }
-    }
-
-    .hint{
-      margin-top: 12px;
-      display:flex; justify-content:space-between; align-items:center;
-      opacity:.9;
-      font-size: 13px;
-      gap:10px;
-    }
-    .pill{
-      padding:10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.2);
-      display:flex; align-items:center; gap:8px;
-      user-select:none;
-    }
-
-    .progress{
-      display:flex; gap:6px; align-items:center;
-    }
-    .p{
-      width: 10px; height: 10px; border-radius:50%;
-      background: rgba(255,255,255,.35);
-      border:1px solid rgba(255,255,255,.22);
-    }
-    .p.active{
-      background:#fff;
-      box-shadow: 0 0 0 4px rgba(255,255,255,.18);
-    }
-
-    /* Swipe animations */
-    .swipeLeft{ animation: swipeLeft 260ms ease-in; }
-    .swipeRight{ animation: swipeRight 260ms ease-in; }
-    @keyframes swipeLeft{
-      from{ transform: translateX(0) rotate(0deg); opacity:1; }
-      to{ transform: translateX(-22px) rotate(-1.2deg); opacity:.6; }
-    }
-    @keyframes swipeRight{
-      from{ transform: translateX(0) rotate(0deg); opacity:1; }
-      to{ transform: translateX(22px) rotate(1.2deg); opacity:.6; }
-    }
-
-    /* Start overlay */
-    .overlay{
-      position:fixed; inset:0;
-      display:flex; justify-content:center; align-items:center;
-      background: rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 18px;
-      z-index:50;
-    }
-    .overlayCard{
-      width:min(440px,92vw);
-      border-radius: 26px;
-      background: rgba(255,255,255,.16);
-      border: 1px solid rgba(255,255,255,.22);
-      box-shadow: var(--shadow);
-      padding: 22px 18px;
-      text-align:center;
-    }
-    .overlayCard h2{ margin:6px 0 10px; font-size:22px; }
-    .overlayCard p{ margin:0 0 14px; line-height:1.55; opacity:.95; font-size:14px; }
-    .startBtn{
-      width:100%;
-      border:none;
-      border-radius: 16px;
-      padding: 13px 14px;
-      background:#fff;
-      color:#ff4d86;
-      font-size: 16px;
-      font-weight: 700;
-      cursor:pointer;
-    }
-    .startBtn:active{ transform: scale(.99); }
-
-    .small{
-      margin-top:10px;
-      font-size:12px;
-      opacity:.85;
-    }
-  </style>
+audio{display:none}
+</style>
 </head>
 
 <body>
-  <div class="hearts" id="hearts"></div>
 
-  <!-- Start overlay (needed for music on mobile) -->
-  <div class="overlay" id="overlay">
-    <div class="overlayCard">
-      <div style="font-size:46px; margin-bottom:6px;">💝</div>
-      <h2>For Zainab</h2>
-      <p>
-        I made a tiny little universe for you ✨<br>
-        Tap Start, then swipe left/right for surprises.
-      </p>
-      <button class="startBtn" id="startBtn">Start ❤️</button>
-      <div class="small">Music starts after you tap (phone rules 😄)</div>
+<div class="overlay" id="overlay">
+  <div class="overlayCard">
+    <div style="font-size:48px">💝</div>
+    <h2>For Zainab</h2>
+    <p>
+      I didn’t want to just say something sweet.<br>
+      I wanted to *make* something — just for you.
+    </p>
+    <button id="startBtn">Start ❤️</button>
+  </div>
+</div>
+
+<div class="card" id="card">
+  <div class="top">
+    <div>Swipe for messages</div>
+    <div class="music" id="musicBtn">🎵 Off</div>
+  </div>
+
+  <h1>Zainab 🌷</h1>
+  <div class="subtitle">
+    Happy Valentine’s Day. I hope this stays with you.
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="emoji" id="emoji">💖</div>
+    <div class="title" id="title">A small beginning</div>
+    <div class="text" id="text">
+      Swipe when you’re ready.
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="card">
-      <div class="topbar">
-        <div class="badge"><span class="dot"></span> Swipe for cute messages</div>
-        <div class="musicBtn" id="musicBtn" title="Toggle music">🎵 <span id="musicLabel">Off</span></div>
-      </div>
-
-      <h1>Zainab 🌷</h1>
-      <p class="sub">Happy Valentine’s Day. I hope this makes you smile a little… a lot. 💕</p>
-
-      <div class="stage" id="stage">
-        <div class="sparkles" id="sparkles"></div>
-
-        <div class="bigEmoji" id="emoji">🐻‍❄️</div>
-        <div class="title" id="title">A small surprise</div>
-        <p class="msg" id="msg">Swipe left or right to begin 💞</p>
-      </div>
-
-      <div class="hint">
-        <div class="pill">⬅️ Swipe</div>
-        <div class="progress" id="progress"></div>
-        <div class="pill">Swipe ➡️</div>
-      </div>
-
-      <!-- Put your song.mp3 in the SAME folder as index.html -->
-      <audio id="bgm" loop preload="auto">
-        <source src="song.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+  <div class="hint">
+    <span>⬅ Swipe</span>
+    <span>Swipe ➡</span>
   </div>
+</div>
 
-  <script>
-    // ======================
-    // Customize your messages here
-    // ======================
-    const cards = [
-      {
-        emoji: "🧸💗",
-        title: "Cutest person award",
-        msg: "Zainab… you’re honestly the cutest part of my day.\nJust thinking about you makes everything softer."
-      },
-      {
-        emoji: "🌙✨",
-        title: "A little prayer",
-        msg: "May your heart always feel safe.\nMay your smile always stay bright.\nAnd may I always be someone who adds peace to your life."
-      },
-      {
-        emoji: "🍓🥛",
-        title: "My comfort person",
-        msg: "You are my comfort.\nMy calm.\nMy favorite ‘again’ in a world full of ‘once’."
-      },
-      {
-        emoji: "🌸🦋",
-        title: "Tiny magic",
-        msg: "You have this quiet magic, Zainab.\nYou don’t even try… and you still make life feel beautiful."
-      },
-      {
-        emoji: "💌🔒",
-        title: "A secret (not really)",
-        msg: "If I had to choose one person\nfor every version of my future…\nI’d choose you. Always."
-      },
-      {
-        emoji: "👑❤️",
-        title: "Final message",
-        msg: "Happy Valentine’s Day, Zainab.\nYou’re special to me in a way words don’t fully explain.\nSwipe again anytime you miss me 💕"
-      }
-    ];
+<audio id="bgm" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
 
-    // ======================
-    // UI refs
-    // ======================
-    const stage = document.getElementById("stage");
-    const emojiEl = document.getElementById("emoji");
-    const titleEl = document.getElementById("title");
-    const msgEl = document.getElementById("msg");
-    const progressEl = document.getElementById("progress");
+<script>
+/* floating hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=["❤️","💗","💖","✨","🌸"][Math.floor(Math.random()*5)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*22)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},450);
 
-    const overlay = document.getElementById("overlay");
-    const startBtn = document.getElementById("startBtn");
+/* slides */
+const slides=[
+{
+ e:"🧸",
+ t:"Comfort",
+ m:"Zainab,\nYou feel like calm in a loud world.\nLike the place my mind rests."
+},
+{
+ e:"🌙",
+ t:"Quiet care",
+ m:"You don’t do big things to impress.\nYou do small things that *matter*.\nThat’s what makes you special."
+},
+{
+ e:"🌸",
+ t:"Your presence",
+ m:"Some people are beautiful to look at.\nSome are beautiful to know.\nYou’re both."
+},
+{
+ e:"💌",
+ t:"Truth",
+ m:"I don’t know what the future holds.\nBut I know who I’d choose to walk through it with."
+},
+{
+ e:"🕊️",
+ t:"From me to you",
+ m:"If this world ever feels heavy,\nI hope you remember:\nYou are deeply valued.\nYou are deeply loved."
+}
+];
 
-    const bgm = document.getElementById("bgm");
-    const musicBtn = document.getElementById("musicBtn");
-    const musicLabel = document.getElementById("musicLabel");
+let i=0;
+const emoji=document.getElementById("emoji");
+const title=document.getElementById("title");
+const text=document.getElementById("text");
+const stage=document.getElementById("stage");
 
-    const sparkles = document.getElementById("sparkles");
-    const hearts = document.getElementById("hearts");
+function show(idx){
+ const s=slides[idx];
+ emoji.textContent=s.e;
+ title.textContent=s.t;
+ text.textContent=s.m;
+ stage.style.animation="none";
+ stage.offsetHeight;
+ stage.style.animation="fadeIn .4s ease";
+}
 
-    // ======================
-    // Progress dots
-    // ======================
-    function renderProgress(activeIndex){
-      progressEl.innerHTML = "";
-      for(let i=0;i<cards.length;i++){
-        const d = document.createElement("div");
-        d.className = "p" + (i===activeIndex ? " active" : "");
-        progressEl.appendChild(d);
-      }
-    }
+/* swipe */
+let startX=0;
+stage.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+stage.addEventListener("touchend",e=>{
+ const dx=e.changedTouches[0].clientX-startX;
+ if(Math.abs(dx)<40)return;
+ i=(dx<0)?(i+1)%slides.length:(i-1+slides.length)%slides.length;
+ show(i);
+});
+stage.addEventListener("click",()=>{i=(i+1)%slides.length;show(i)});
 
-    // ======================
-    // Sparkles (cute ambient)
-    // ======================
-    function makeSparkles(){
-      sparkles.innerHTML = "";
-      const count = 14;
-      for(let i=0;i<count;i++){
-        const s = document.createElement("div");
-        s.className = "sparkle";
-        s.style.left = (Math.random()*100) + "%";
-        s.style.top = (Math.random()*100) + "%";
-        s.style.animationDelay = (Math.random()*1.2) + "s";
-        s.style.transform = `scale(${0.7 + Math.random()*0.8})`;
-        sparkles.appendChild(s);
-      }
-    }
+/* music */
+const bgm=document.getElementById("bgm");
+const musicBtn=document.getElementById("musicBtn");
+let playing=false;
 
-    // ======================
-    // Floating hearts background
-    // ======================
-    function spawnHeart(){
-      const h = document.createElement("div");
-      h.className = "heart";
-      const emojis = ["💗","💖","💘","💝","💕","❤️","✨","🌸","🫶"];
-      h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-      h.style.left = (Math.random()*100) + "vw";
-      h.style.fontSize = (14 + Math.random()*22) + "px";
-      h.style.setProperty("--drift", ((Math.random()*120)-60) + "px");
-      const dur = 5 + Math.random()*4;
-      h.style.animationDuration = dur + "s";
-      hearts.appendChild(h);
-      setTimeout(()=> h.remove(), dur*1000);
-    }
-    setInterval(spawnHeart, 420);
+musicBtn.onclick=async()=>{
+ try{
+  if(!playing){await bgm.play();playing=true;musicBtn.textContent="🎵 On";}
+  else{bgm.pause();playing=false;musicBtn.textContent="🎵 Off";}
+ }catch(e){}
+};
 
-    // ======================
-    // Card switching (swipe)
-    // ======================
-    let idx = -1; // start before first
-    function showCard(newIdx, direction){
-      idx = (newIdx + cards.length) % cards.length;
-      const c = cards[idx];
+/* start */
+document.getElementById("startBtn").onclick=async()=>{
+ document.getElementById("overlay").style.display="none";
+ show(0);
+ try{
+  await bgm.play();
+  playing=true;
+  musicBtn.textContent="🎵 On";
+ }catch(e){}
+};
+</script>
 
-      stage.classList.remove("swipeLeft","swipeRight");
-      void stage.offsetWidth; // reflow to restart animation
-      stage.classList.add(direction === "left" ? "swipeLeft" : "swipeRight");
-
-      emojiEl.textContent = c.emoji;
-      titleEl.textContent = c.title;
-      msgEl.textContent = c.msg;
-
-      renderProgress(idx);
-
-      // Little pop confetti-like effect
-      burst();
-    }
-
-    // small burst animation using hearts
-    function burst(){
-      for(let i=0;i<10;i++){
-        const b = document.createElement("div");
-        b.className = "heart";
-        b.textContent = ["💖","✨","💗","🌸"][Math.floor(Math.random()*4)];
-        const rect = stage.getBoundingClientRect();
-        b.style.left = (rect.left + rect.width/2 + (Math.random()*120-60)) + "px";
-        b.style.bottom = (window.innerHeight - rect.top - rect.height/2) + "px";
-        b.style.position = "fixed";
-        b.style.setProperty("--drift", (Math.random()*80-40)+"px");
-        b.style.animationDuration = (2.8 + Math.random()*1.2) + "s";
-        hearts.appendChild(b);
-        setTimeout(()=> b.remove(), 4200);
-      }
-    }
-
-    // Touch swipe detection
-    let startX = 0, startY = 0, isTouching=false;
-
-    stage.addEventListener("touchstart", (e)=>{
-      isTouching = true;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    }, {passive:true});
-
-    stage.addEventListener("touchend", (e)=>{
-      if(!isTouching) return;
-      isTouching = false;
-
-      const endX = e.changedTouches[0].clientX;
-      const endY = e.changedTouches[0].clientY;
-
-      const dx = endX - startX;
-      const dy = endY - startY;
-
-      // ignore vertical scroll swipes
-      if(Math.abs(dy) > Math.abs(dx)) return;
-
-      if(dx < -45){
-        // swipe left -> next
-        showCard(idx + 1, "left");
-      } else if(dx > 45){
-        // swipe right -> previous
-        showCard(idx - 1, "right");
-      }
-    }, {passive:true});
-
-    // Also allow clicks for desktop/testing
-    stage.addEventListener("click", ()=> showCard(idx + 1, "left"));
-
-    // ======================
-    // Music controls (mobile-safe)
-    // ======================
-    let musicOn = false;
-
-    async function toggleMusic(){
-      try{
-        if(!musicOn){
-          await bgm.play();
-          musicOn = true;
-          musicLabel.textContent = "On";
-        }else{
-          bgm.pause();
-          musicOn = false;
-          musicLabel.textContent = "Off";
-        }
-      }catch(err){
-        // If song missing or autoplay blocked
-        alert("Add a file named song.mp3 next to index.html, then try again 🙂");
-      }
-    }
-
-    musicBtn.addEventListener("click", toggleMusic);
-
-    startBtn.addEventListener("click", async ()=>{
-      overlay.style.display = "none";
-      makeSparkles();
-      renderProgress(0);
-
-      // Show first card + try start music
-      showCard(0, "left");
-      try{
-        await bgm.play();
-        musicOn = true;
-        musicLabel.textContent = "On";
-      }catch(e){
-        // It's ok if it fails; she can tap music button
-      }
-    });
-
-    // initial sparkles (behind overlay it’s fine)
-    makeSparkles();
-    renderProgress(0);
-  </script>
 </body>
 </html>
