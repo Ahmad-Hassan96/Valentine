@@ -9,23 +9,20 @@
 <title>Written in My Heart — For Zainab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
-
 <style>
-/* ============ RESET & ROOTS ============ */
+
+/* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --rose:        #b5224a;
-  --rose-light:  #e85d83;
-  --rose-pale:   #fce8ed;
-  --rose-deep:   #7c0e2e;
-  --gold:        #c9975a;
-  --gold-light:  #f0d49a;
-  --cream:       #fdf7f0;
-  --ink:         #2c1a1a;
-  --ink-soft:    #5a3535;
-  --petal-1:     #f4a0b5;
-  --petal-2:     #f7c5d5;
+  --rose:       #b5224a;
+  --rose-deep:  #7c0e2e;
+  --gold:       #c9975a;
+  --gold-light: #f0d49a;
+  --cream:      #fdf7f0;
+  --ink:        #2c1a1a;
+  --ink-soft:   #5a3535;
+  --petal-2:    #f7c5d5;
 }
 
 body {
@@ -41,640 +38,510 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ============ FLOATING PETALS LAYER ============ */
 #petals-canvas {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
 }
 
-/* ============ PARTICLES ============ */
-.particle {
-  position: fixed;
-  pointer-events: none;
-  z-index: 0;
-  animation: floatUp linear infinite;
-  opacity: 0;
-}
-@keyframes floatUp {
-  0%   { transform: translateY(110vh) rotate(0deg) scale(0.4); opacity: 0; }
-  10%  { opacity: 0.7; }
-  90%  { opacity: 0.4; }
-  100% { transform: translateY(-10vh) rotate(720deg) scale(1); opacity: 0; }
-}
-
-/* ============ OVERLAY (intro) ============ */
+/* ===== OVERLAY ===== */
 #overlay {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   background: radial-gradient(ellipse at center, #3d0920 0%, #0d0008 100%);
   min-height: 100dvh;
 }
-
 .intro-card {
   text-align: center;
-  padding: 0 24px;
+  padding: 0 28px;
   animation: introFadeIn 1.2s ease both;
 }
-
 @keyframes introFadeIn {
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-.intro-card .cursive-title {
+.cursive-title {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(42px, 10vw, 72px);
   color: var(--gold-light);
-  text-shadow: 0 0 40px rgba(201,151,90,0.6), 0 0 80px rgba(201,151,90,0.2);
-  margin-bottom: 12px;
+  text-shadow: 0 0 40px rgba(201,151,90,0.6);
   display: block;
+  margin-bottom: 8px;
 }
-
-.intro-card .subtitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
+.intro-sub {
+  font-size: 15px;
   font-style: italic;
   color: var(--petal-2);
-  letter-spacing: 0.12em;
-  margin-bottom: 40px;
-  line-height: 1.8;
+  letter-spacing: 0.1em;
+  line-height: 1.9;
+  margin-bottom: 32px;
 }
-
-.open-btn {
-  position: relative;
+.intro-hearts {
+  display: flex; justify-content: center;
+  gap: 14px; margin-bottom: 28px;
+}
+.intro-hearts span {
+  font-size: 22px;
   display: inline-block;
-  padding: 16px 44px;
-  border: 1.5px solid rgba(201,151,90,0.6);
+  animation: pulse 1.6s ease infinite;
+}
+.intro-hearts span:nth-child(2) { animation-delay:.3s; font-size:30px; }
+.intro-hearts span:nth-child(3) { animation-delay:.6s; }
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.25); }
+}
+.open-btn {
+  display: inline-block;
+  padding: 15px 42px;
+  border: 1.5px solid rgba(201,151,90,0.65);
   border-radius: 60px;
-  background: rgba(181,34,74,0.15);
+  background: rgba(181,34,74,0.2);
   color: var(--gold-light);
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
   font-style: italic;
   letter-spacing: 0.1em;
   cursor: pointer;
-  overflow: hidden;
-  transition: color 0.4s, border-color 0.4s, background 0.4s;
   -webkit-appearance: none;
   appearance: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  user-select: none;
+  transition: background 0.3s, border-color 0.3s;
+}
+.open-btn:hover, .open-btn:active {
+  background: rgba(181,34,74,0.38);
+  border-color: var(--gold-light);
 }
 
-.open-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(181,34,74,0.3), rgba(201,151,90,0.3));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-  border-radius: inherit;
-}
-
-.open-btn:hover::before { transform: scaleX(1); }
-.open-btn:hover { border-color: var(--gold-light); }
-
-.open-btn span { position: relative; z-index: 1; }
-
-.intro-hearts {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 28px;
-}
-
-.intro-hearts .h {
-  font-size: 22px;
-  animation: pulse 1.6s ease infinite;
-  display: inline-block;
-}
-.intro-hearts .h:nth-child(2) { animation-delay: 0.3s; font-size: 30px; }
-.intro-hearts .h:nth-child(3) { animation-delay: 0.6s; }
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.25); }
-}
-
-/* ============ BOOK WRAPPER ============ */
+/* ===== SCENE ===== */
 #scene {
-  position: relative;
-  z-index: 10;
+  position: relative; z-index: 10;
   perspective: 1800px;
-  width: min(420px, 92vw);
-  height: min(600px, 72vh);
-  height: min(600px, 72dvh);
+  width: min(420px, 93vw);
+  height: min(570px, 67dvh);
 }
 
-/* ============ BOOK ============ */
+/* ===== BOOK ===== */
 .book {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   position: relative;
   transform-style: preserve-3d;
   animation: bookReveal 0.8s cubic-bezier(0.22,1,0.36,1) both;
 }
-
 @keyframes bookReveal {
-  from { opacity: 0; transform: rotateY(25deg) scale(0.9); }
-  to   { opacity: 1; transform: rotateY(0deg) scale(1); }
+  from { opacity:0; transform: rotateY(25deg) scale(0.9); }
+  to   { opacity:1; transform: rotateY(0deg) scale(1); }
 }
-
-/* Book shadow */
 .book::after {
-  content: '';
+  content:'';
   position: absolute;
-  bottom: -40px;
-  left: 50%;
+  bottom: -34px; left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  height: 40px;
-  background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
+  width: 80%; height: 34px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.42) 0%, transparent 70%);
   filter: blur(8px);
 }
 
-/* ============ PAGES ============ */
+/* ===== PAGES ===== */
 .page {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: var(--cream);
-  border-radius: 4px 18px 18px 4px;
-  padding: 44px 32px 32px 52px;
+  border-radius: 4px 16px 16px 4px;
   display: flex;
   flex-direction: column;
   box-shadow:
-    4px 0 30px rgba(0,0,0,0.3),
-    inset -1px 0 0 rgba(0,0,0,0.06),
-    inset 0 0 60px rgba(252,232,237,0.4);
-  overflow: hidden;
-  transition: transform 0.75s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    4px 0 28px rgba(0,0,0,0.28),
+    inset 0 0 50px rgba(252,232,237,0.35);
+  overflow: hidden;          /* never scroll — content is sized to fit */
+  transition: transform 0.72s cubic-bezier(0.645,0.045,0.355,1);
   transform-origin: left center;
   backface-visibility: hidden;
   will-change: transform;
 }
-
-/* Paper texture overlay */
+/* paper texture */
 .page::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity: 0.5;
-  pointer-events: none;
-  border-radius: inherit;
+  content:'';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5; pointer-events: none; border-radius: inherit;
 }
-
-/* Spine */
+/* spine line */
 .page::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0;
-  width: 22px; height: 100%;
-  background: linear-gradient(to right, #dcc9b0 0%, #f5e8d5 60%, transparent 100%);
+  content:'';
+  position: absolute; left:0; top:0;
+  width: 20px; height: 100%;
+  background: linear-gradient(to right, #dcc9b0, #f5e8d5 60%, transparent);
   border-radius: 4px 0 0 4px;
 }
-
 .page.hidden {
   transform: rotateY(-180deg);
   pointer-events: none;
 }
 
-/* ============ PAGE CORNER ORNAMENT ============ */
-.corner-ornament {
-  position: absolute;
-  top: 14px; right: 18px;
-  width: 36px; height: 36px;
-  opacity: 0.25;
-}
-
-/* ============ PAGE CONTENT ============ */
-.page-content {
+/* ===== INNER — this is what holds all text ===== */
+.page-inner {
+  position: relative; z-index: 1;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  animation: contentReveal 0.5s ease both;
+  justify-content: center;    /* vertically centred on every page */
+  padding: 30px 24px 26px 44px;
+  min-height: 0;
+  animation: contentReveal 0.45s ease both;
 }
-
 @keyframes contentReveal {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform: translateY(10px); }
+  to   { opacity:1; transform: translateY(0); }
 }
-
-/* Cover page */
-.page-cover .page-content {
-  justify-content: center;
+.page-inner.cover {
   align-items: center;
   text-align: center;
 }
 
-.page-number {
-  position: absolute;
-  bottom: 18px;
-  right: 24px;
-  font-size: 11px;
-  color: #9a7a7a;
-  letter-spacing: 0.15em;
-  font-style: italic;
-  z-index: 1;
+/* corner ornament */
+.corner {
+  position: absolute; top: 12px; right: 14px;
+  width: 30px; height: 30px;
+  opacity: 0.2; z-index: 1;
+}
+/* watermark */
+.wm {
+  position: absolute; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 54px; opacity: 0.04;
+  pointer-events: none; user-select: none; z-index: 0;
+}
+/* page number */
+.pg-num {
+  position: absolute; bottom: 12px; right: 18px;
+  font-size: 10px; color: #9a7a7a;
+  letter-spacing: 0.14em; font-style: italic; z-index: 2;
 }
 
-.divider {
-  width: 48px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
-  margin: 16px 0;
-}
-
-.chapter-label {
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--rose);
-  opacity: 0.7;
-  margin-bottom: 10px;
-}
-
+/* ===== COVER ELEMENTS ===== */
 .cover-title {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(34px, 8vw, 50px);
-  color: var(--rose-deep);
-  line-height: 1.2;
-  margin-bottom: 6px;
+  font-size: clamp(26px, 6.5vw, 40px);
+  color: var(--rose-deep); line-height: 1.2; margin-bottom: 4px;
 }
-
 .cover-name {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(44px, 10vw, 64px);
-  color: var(--rose);
-  line-height: 1;
+  font-size: clamp(38px, 9vw, 56px);
+  color: var(--rose); line-height: 1;
+}
+.cover-tag {
+  font-size: 12px; font-style: italic;
+  color: var(--ink-soft); letter-spacing: 0.09em;
+  margin-top: 12px; opacity: 0.72; line-height: 1.6;
+}
+.cover-date {
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #9a7a7a; margin-top: 10px;
+}
+.divider {
+  width: 42px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 12px auto;
 }
 
-.cover-tagline {
-  font-size: 13px;
-  font-style: italic;
-  color: var(--ink-soft);
-  letter-spacing: 0.1em;
-  margin-top: 16px;
-  opacity: 0.7;
+/* ===== CHAPTER TEXT ===== */
+.ch-label {
+  font-size: 10px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--rose);
+  opacity: 0.72; margin-bottom: 6px;
 }
-
-.chapter-title {
+.ch-title {
   font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  color: var(--rose-deep);
-  margin-bottom: 4px;
-  font-style: italic;
+  font-size: clamp(16px, 4.2vw, 20px);
+  color: var(--rose-deep); font-style: italic;
+  line-height: 1.25; margin-bottom: 2px;
 }
-
-.chapter-body {
-  font-size: 15.5px;
-  line-height: 1.95;
+.ch-divider {
+  width: 38px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 9px 0 11px;
+}
+.ch-body {
+  font-size: clamp(13px, 3.4vw, 15px);
+  line-height: 1.9;
   color: var(--ink);
   white-space: pre-line;
   font-weight: 300;
 }
+.ch-body em { font-style: italic; color: var(--rose); }
 
-.chapter-body em {
-  font-style: italic;
-  color: var(--rose);
+/* ===== FINAL ===== */
+.final-heart {
+  font-size: 44px; text-align: center;
+  display: block; margin: 6px 0;
+  animation: finalPulse 1.4s ease infinite;
+}
+@keyframes finalPulse {
+  0%,100% { transform: scale(1) rotate(-3deg); }
+  50%      { transform: scale(1.14) rotate(3deg); }
+}
+.signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 26px; color: var(--rose);
+  text-align: center; margin-top: 10px;
 }
 
-/* Rose watermark inside pages */
-.rose-wm {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
+/* ===== SWIPE HINT ===== */
+.swipe-hint {
+  position: absolute; bottom: 12px; left: 50%;
   transform: translateX(-50%);
-  font-size: 64px;
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 0;
-  user-select: none;
+  font-size: 10px; color: #9a7a7a;
+  letter-spacing: 0.12em; font-style: italic;
+  z-index: 2; animation: hintFade 3s ease 2.5s both;
+  white-space: nowrap;
+}
+@keyframes hintFade {
+  0%{opacity:0} 20%{opacity:0.55} 80%{opacity:0.55} 100%{opacity:0}
 }
 
-/* ============ NAV ARROWS ============ */
-.nav {
-  position: fixed;
-  bottom: max(28px, calc(16px + env(safe-area-inset-bottom)));
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 16px;
-  z-index: 20;
-}
-
-.nav-btn {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(240,212,154,0.35);
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--gold-light);
-  font-size: 22px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.3s, border-color 0.3s, transform 0.2s;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.nav-btn:hover {
-  background: rgba(181,34,74,0.25);
-  border-color: rgba(240,212,154,0.7);
-  transform: scale(1.08);
-}
-.nav-btn:active { transform: scale(0.95); }
-.nav-btn:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
-
-/* ============ PROGRESS DOTS ============ */
+/* ===== PROGRESS + NAV ===== */
 .progress {
   position: fixed;
-  bottom: max(88px, calc(76px + env(safe-area-inset-bottom)));
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 20;
+  bottom: max(82px, calc(70px + env(safe-area-inset-bottom)));
+  left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 20;
 }
 .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
   background: rgba(240,212,154,0.25);
   transition: background 0.4s, transform 0.4s;
 }
-.dot.active {
-  background: var(--gold-light);
-  transform: scale(1.4);
-}
+.dot.active { background: var(--gold-light); transform: scale(1.4); }
 
-/* ============ HEART BURST ANIMATION ============ */
-.heart-burst {
+.nav {
   position: fixed;
-  pointer-events: none;
-  z-index: 200;
-  font-size: 22px;
+  bottom: max(22px, calc(10px + env(safe-area-inset-bottom)));
+  left: 50%; transform: translateX(-50%);
+  display: flex; gap: 16px; z-index: 20;
+}
+.nav-btn {
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 1.5px solid rgba(240,212,154,0.35);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  color: var(--gold-light); font-size: 22px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s, border-color 0.3s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.nav-btn:hover  { background: rgba(181,34,74,0.25); border-color: rgba(240,212,154,0.7); transform: scale(1.08); }
+.nav-btn:active { transform: scale(0.94); }
+.nav-btn:disabled { opacity: 0.18; pointer-events: none; }
+
+/* ===== ANIMATIONS ===== */
+.heart-burst {
+  position: fixed; pointer-events: none;
+  z-index: 200; font-size: 20px;
   animation: burstFly 1.1s ease forwards;
-  will-change: transform, opacity;
 }
 @keyframes burstFly {
-  0%   { transform: translate(0,0) scale(0.5); opacity: 1; }
-  100% { transform: translate(var(--tx), var(--ty)) scale(0.1); opacity: 0; }
+  0%   { transform: translate(0,0) scale(0.5); opacity:1; }
+  100% { transform: translate(var(--tx),var(--ty)) scale(0.1); opacity:0; }
 }
-
-/* ============ PAGE TURN SPARKLE ============ */
 .sparkle {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
+  position: absolute; pointer-events: none; border-radius: 50%;
   background: radial-gradient(circle, #f0d49a, transparent);
   animation: sparkleAnim 0.6s ease forwards;
 }
 @keyframes sparkleAnim {
-  0%   { transform: scale(0); opacity: 1; }
-  100% { transform: scale(3); opacity: 0; }
+  0%   { transform: scale(0); opacity:1; }
+  100% { transform: scale(3); opacity:0; }
 }
 
-/* ============ SWIPE HINT ============ */
-.swipe-hint {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  color: #9a7a7a;
-  letter-spacing: 0.12em;
-  font-style: italic;
-  z-index: 2;
-  animation: hintFade 3s ease 2s both;
-  white-space: nowrap;
+/* ===== RESPONSIVE ===== */
+@media (max-height: 680px) {
+  #scene { height: min(500px, 65dvh); }
+  .page-inner { padding: 24px 20px 22px 38px; }
+  .ch-body    { font-size: 12.5px; line-height: 1.78; }
+  .ch-title   { font-size: 15px; }
+  .cover-name { font-size: 34px; }
+  .final-heart{ font-size: 36px; }
+  .ch-divider { margin: 7px 0 9px; }
 }
-@keyframes hintFade {
-  0%   { opacity: 0; }
-  20%  { opacity: 0.6; }
-  80%  { opacity: 0.6; }
-  100% { opacity: 0; }
+@media (max-width: 360px) {
+  .page-inner { padding: 22px 16px 20px 34px; }
+  .ch-body    { font-size: 12px; }
 }
 
-/* ============ FINAL PAGE ============ */
-.final-heart {
-  font-size: 52px;
-  text-align: center;
-  display: block;
-  margin: 10px 0;
-  animation: finalPulse 1.4s ease infinite;
-}
-@keyframes finalPulse {
-  0%, 100% { transform: scale(1) rotate(-3deg); }
-  50%       { transform: scale(1.15) rotate(3deg); }
-}
-
-.signature {
-  font-family: 'Great Vibes', cursive;
-  font-size: 28px;
-  color: var(--rose);
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* ============ MOBILE TWEAKS ============ */
-@media (max-height: 700px) {
-  .page { padding: 32px 24px 24px 42px; }
-  .chapter-title { font-size: 19px; }
-  .chapter-body  { font-size: 14px; line-height: 1.85; }
-  .cover-title   { font-size: 28px; }
-  .cover-name    { font-size: 40px; }
-  .final-heart   { font-size: 40px; }
-  .divider       { margin: 10px 0; }
-}
-
-@media (max-width: 380px) {
-  .page { padding: 30px 20px 22px 38px; }
-  .chapter-body { font-size: 13.5px; }
-  .chapter-title { font-size: 18px; }
-}
 </style>
 </head>
 <body>
 
 <canvas id="petals-canvas"></canvas>
 
-<!-- INTRO OVERLAY -->
+<!-- OVERLAY -->
 <div id="overlay">
   <div class="intro-card">
     <span class="cursive-title">For Zainab</span>
-    <p class="subtitle">
-      Some feelings are too vast for words.<br>
-      So I wrote you a book instead.
+    <p class="intro-sub">
+      Some feelings are too big for a message.<br>
+      So Ahmad wrote you a book instead.
     </p>
     <div class="intro-hearts">
-      <span class="h">🌹</span>
-      <span class="h">❤️</span>
-      <span class="h">🌹</span>
+      <span>🌹</span><span>❤️</span><span>🌹</span>
     </div>
-    <button class="open-btn" id="openBtn" type="button">
-      <span>Open your letter ❤️</span>
-    </button>
+    <button class="open-btn" id="openBtn" type="button">Open your letter ❤️</button>
   </div>
 </div>
 
 <!-- BOOK -->
 <div id="scene">
-  <div class="book" id="book">
+ <div class="book" id="book">
 
-    <!-- PAGE 0: COVER -->
-    <div class="page page-cover" id="p0">
-      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
-      <div class="page-content">
-        <p class="cover-title">Written in my heart,</p>
-        <p class="cover-name">Zainab</p>
-        <p class="cover-tagline">A collection of feelings I couldn't stay quiet about</p>
-        <div class="divider" style="margin: 18px auto;"></div>
-        <p style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#9a7a7a; font-style:italic;">February 14, 2026</p>
-      </div>
-      <div class="rose-wm">🌹</div>
-      <div class="swipe-hint">swipe or use arrows to turn →</div>
+  <!-- COVER -->
+  <div class="page" id="p0">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner cover">
+      <p class="cover-title">Written in my heart,</p>
+      <p class="cover-name">Zainab</p>
+      <div class="divider"></div>
+      <p class="cover-tag">A husband's letter to the woman<br>who made life worth living</p>
+      <p class="cover-date">Valentine's Day · February 14, 2026</p>
     </div>
+    <div class="wm">🌹</div>
+    <div class="swipe-hint">swipe or tap arrows to turn →</div>
+  </div>
 
-    <!-- PAGE 1 -->
-    <div class="page hidden" id="p1">
-      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
-      <div class="page-content">
-        <p class="chapter-label">Chapter I</p>
-        <h2 class="chapter-title">The Quiet Magic of You</h2>
-        <div class="divider"></div>
-        <p class="chapter-body">There are people who enter a room and demand to be noticed.
+  <!-- PAGE 1 -->
+  <div class="page hidden" id="p1">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner">
+      <p class="ch-label">Chapter I</p>
+      <h2 class="ch-title">My Favourite Person</h2>
+      <div class="ch-divider"></div>
+      <p class="ch-body">Of all the people in the world,
+you are the one Ahmad would choose
+<em>every single time.</em>
 
-And then there's you —
-who enters, and suddenly
-the room <em>means</em> something.
-
-You carry a kind of warmth
-that doesn't announce itself,
-it just… arrives.
-And everything near you becomes gentler.</p>
-      </div>
-      <div class="rose-wm">❤</div>
-      <div class="page-number">— i —</div>
+Not just as my wife —
+but as my person.
+The one I want beside me
+on quiet Tuesdays
+and every moment between.</p>
     </div>
+    <div class="wm">❤</div>
+    <div class="pg-num">— i —</div>
+  </div>
 
-    <!-- PAGE 2 -->
-    <div class="page hidden" id="p2">
-      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
-      <div class="page-content">
-        <p class="chapter-label">Chapter II</p>
-        <h2 class="chapter-title">What I Notice</h2>
-        <div class="divider"></div>
-        <p class="chapter-body">The way you listen —
-not just with your ears,
-but with your whole self.
+  <!-- PAGE 2 -->
+  <div class="page hidden" id="p2">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner">
+      <p class="ch-label">Chapter II</p>
+      <h2 class="ch-title">What You Do to a Room</h2>
+      <div class="ch-divider"></div>
+      <p class="ch-body">You walk in
+and everything becomes warmer.
 
-The way you laugh
-like you mean it completely.
+Not louder — <em>warmer.</em>
 
-The way you make ordinary moments
-feel like <em>something worth remembering.</em>
-
-I notice all of it.
-More than you know.</p>
-      </div>
-      <div class="rose-wm">🌸</div>
-      <div class="page-number">— ii —</div>
+I notice it every time.
+The whole world adjusts itself
+around you,
+as if it knows
+something remarkable arrived.</p>
     </div>
+    <div class="wm">🌸</div>
+    <div class="pg-num">— ii —</div>
+  </div>
 
-    <!-- PAGE 3 -->
-    <div class="page hidden" id="p3">
-      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
-      <div class="page-content">
-        <p class="chapter-label">Chapter III</p>
-        <h2 class="chapter-title">Rare</h2>
-        <div class="divider"></div>
-        <p class="chapter-body">There are billions of people
-alive on this earth right now.
+  <!-- PAGE 3 -->
+  <div class="page hidden" id="p3">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner">
+      <p class="ch-label">Chapter III</p>
+      <h2 class="ch-title">The Honour of Being Yours</h2>
+      <div class="ch-divider"></div>
+      <p class="ch-body">Being your husband
+is the greatest thing
+that ever happened to me.
 
-Billions of conversations
-happening every second.
+Not a small thing —
+<em>the greatest thing.</em>
 
-And yet — somehow —
-<em>you</em> are singular.
-
-A person who makes
-the world feel less noisy,
-less sharp,
-more liveable.
-
-That is not small.
-That is everything.</p>
-      </div>
-      <div class="rose-wm">✦</div>
-      <div class="page-number">— iii —</div>
+I do not take it lightly.
+I never will.</p>
     </div>
+    <div class="wm">✦</div>
+    <div class="pg-num">— iii —</div>
+  </div>
 
-    <!-- PAGE 4 -->
-    <div class="page hidden" id="p4">
-      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
-      <div class="page-content">
-        <p class="chapter-label">Chapter IV</p>
-        <h2 class="chapter-title">The Truth</h2>
-        <div class="divider"></div>
-        <p class="chapter-body">I have tried to find the right words
-for a long time.
+  <!-- PAGE 4 -->
+  <div class="page hidden" id="p4">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner">
+      <p class="ch-label">Chapter IV</p>
+      <h2 class="ch-title">What I See in You</h2>
+      <div class="ch-divider"></div>
+      <p class="ch-body">Your strength —
+even when you think no one notices.
 
-The honest ones are simple:
+Your softness —
+even when life has been unkind.
 
-You matter to me
-in a way that doesn't need
-<em>an occasion</em> to be true.
+Your heart —
+bigger than you know.
 
-Not just on days like today.
-Not just when it's easy.
-
-Always.</p>
-      </div>
-      <div class="rose-wm">❤</div>
-      <div class="page-number">— iv —</div>
+<em>I see all of it, Zainab.</em></p>
     </div>
+    <div class="wm">❤</div>
+    <div class="pg-num">— iv —</div>
+  </div>
 
-    <!-- PAGE 5: FINAL -->
-    <div class="page hidden" id="p5">
-      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
-      <div class="page-content" style="text-align:center;">
-        <p class="chapter-label">Valentine's Day</p>
-        <span class="final-heart">❤️</span>
-        <div class="divider" style="margin: 12px auto;"></div>
-        <p class="chapter-body" style="text-align:center;">
-Happy Valentine's Day, <em>Zainab.</em>
+  <!-- PAGE 5 -->
+  <div class="page hidden" id="p5">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner">
+      <p class="ch-label">Chapter V</p>
+      <h2 class="ch-title">A Promise from Ahmad</h2>
+      <div class="ch-divider"></div>
+      <p class="ch-body">I promise to keep choosing you —
+on the easy days
+<em>and</em> the hard ones.
 
-May today feel like
-the warmth you give
-to everyone around you —
+To be the person
+who makes you feel
+safe, loved, and seen.
 
-finally returned to you,
-completely.</p>
-        <p class="signature">— Always yours ❤️</p>
-      </div>
-      <div class="page-number">— fin —</div>
+Every year.
+Every day.
+<em>Always.</em></p>
     </div>
+    <div class="wm">🌹</div>
+    <div class="pg-num">— v —</div>
+  </div>
 
-  </div><!-- /book -->
-</div><!-- /scene -->
+  <!-- FINAL PAGE -->
+  <div class="page hidden" id="p6">
+    <svg class="corner" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.5"/></svg>
+    <div class="page-inner cover">
+      <p class="ch-label">Valentine's Day</p>
+      <span class="final-heart">❤️</span>
+      <div class="divider"></div>
+      <p class="ch-body" style="text-align:center;">Happy Valentine's Day,<br><em>Zainab.</em>
 
-<!-- NAV -->
+May today remind you
+how deeply you are loved —
+by the man who is so lucky
+to call you his wife.</p>
+      <p class="signature">— Ahmad ❤️</p>
+    </div>
+    <div class="pg-num">— fin —</div>
+  </div>
+
+ </div>
+</div>
+
 <div class="progress" id="progress"></div>
 <div class="nav">
-  <button class="nav-btn" id="prevBtn" disabled aria-label="Previous page">←</button>
-  <button class="nav-btn" id="nextBtn" aria-label="Next page">→</button>
+  <button class="nav-btn" id="prevBtn" disabled type="button">←</button>
+  <button class="nav-btn" id="nextBtn" type="button">→</button>
 </div>
 
 <audio id="bgm" loop preload="auto">
@@ -682,62 +549,50 @@ completely.</p>
 </audio>
 
 <script>
-/* ============ PETAL CANVAS ============ */
+/* ===== PETALS ===== */
 (function(){
   const canvas = document.getElementById('petals-canvas');
-  const ctx    = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   let W, H;
-  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+  const resize = () => { W = canvas.width = innerWidth; H = canvas.height = innerHeight; };
   resize();
   window.addEventListener('resize', resize);
-
   const COLORS = ['#f4a0b5','#e85d83','#f7c5d5','#c9975a','#b5224a','#fce8ed'];
-  const petals = Array.from({length:38}, () => ({
-    x: Math.random()*2000, y: Math.random()*1000,
+  const petals = Array.from({length:36}, () => ({
+    x: Math.random()*1800, y: Math.random()*900,
     r: 3 + Math.random()*5,
-    vx: -0.3 - Math.random()*0.6,
-    vy: 0.4 + Math.random()*0.8,
+    vx: -0.25 - Math.random()*0.5,
+    vy:  0.35 + Math.random()*0.7,
     a: Math.random()*Math.PI*2,
-    va: (Math.random()-0.5)*0.04,
+    va: (Math.random()-0.5)*0.035,
     color: COLORS[Math.floor(Math.random()*COLORS.length)],
-    opacity: 0.15 + Math.random()*0.35
+    op: 0.15 + Math.random()*0.3
   }));
-
-  function drawPetal(p){
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.a);
-    ctx.globalAlpha = p.opacity;
-    ctx.fillStyle = p.color;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, p.r, p.r*0.55, 0, 0, Math.PI*2);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function loop(){
+  (function loop(){
     ctx.clearRect(0,0,W,H);
     petals.forEach(p => {
-      p.x += p.vx; p.y += p.vy; p.a += p.va;
-      if(p.x < -20) p.x = W+20;
-      if(p.y > H+20){ p.y = -20; p.x = Math.random()*W; }
-      drawPetal(p);
+      p.x+=p.vx; p.y+=p.vy; p.a+=p.va;
+      if(p.x<-20) p.x=W+20;
+      if(p.y>H+20){p.y=-20; p.x=Math.random()*W;}
+      ctx.save();
+      ctx.translate(p.x,p.y); ctx.rotate(p.a);
+      ctx.globalAlpha=p.op; ctx.fillStyle=p.color;
+      ctx.beginPath(); ctx.ellipse(0,0,p.r,p.r*0.52,0,0,Math.PI*2); ctx.fill();
+      ctx.restore();
     });
     requestAnimationFrame(loop);
-  }
-  loop();
+  })();
 })();
 
-/* ============ BOOK LOGIC ============ */
-const pages   = [...document.querySelectorAll('.page')];
-const total   = pages.length;
-let current   = 0;
+/* ===== BOOK ===== */
+const pages = [...document.querySelectorAll('.page')];
+const total = pages.length;
+let current = 0;
 
-const prevBtn    = document.getElementById('prevBtn');
-const nextBtn    = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 const progressEl = document.getElementById('progress');
 
-// Build dots
 pages.forEach((_,i) => {
   const d = document.createElement('div');
   d.className = 'dot' + (i===0?' active':'');
@@ -747,116 +602,37 @@ const dots = [...progressEl.querySelectorAll('.dot')];
 
 function updateNav(){
   prevBtn.disabled = current === 0;
-  nextBtn.disabled = current === total - 1;
+  nextBtn.disabled = current === total-1;
   dots.forEach((d,i) => d.classList.toggle('active', i===current));
 }
 
 function showPage(n, dir){
-  // animate content out then in
-  const page = pages[n];
-  const content = page.querySelector('.page-content');
-
-  // hide all pages beyond n
-  pages.forEach((p,i) => {
-    p.classList.toggle('hidden', i > n);
-  });
-
-  // restart content animation
-  if(content){
-    content.style.animation = 'none';
-    content.offsetHeight; // reflow
-    content.style.animation = '';
-  }
-
-  // sparkle effect on left spine area
-  if(dir === 'next'){
-    spawnSparkle(52 + Math.random()*30, 80 + Math.random()*300);
-  }
-
+  pages.forEach((p,i) => p.classList.toggle('hidden', i > n));
+  const inner = pages[n].querySelector('.page-inner');
+  if(inner){ inner.style.animation='none'; inner.offsetHeight; inner.style.animation=''; }
+  if(dir==='next') spawnSparkle();
   updateNav();
 }
 
-function spawnSparkle(x, y){
+function spawnSparkle(){
   const s = document.createElement('div');
   s.className = 'sparkle';
-  s.style.cssText = `left:${x}px;top:${y}px;width:18px;height:18px;`;
+  s.style.cssText = `left:${48+Math.random()*28}px;top:${80+Math.random()*260}px;width:15px;height:15px;`;
   document.getElementById('scene').appendChild(s);
-  setTimeout(() => s.remove(), 700);
+  setTimeout(()=>s.remove(), 700);
 }
 
-prevBtn.addEventListener('click', () => {
-  if(current > 0){ current--; showPage(current, 'prev'); spawnHearts(); }
-});
-nextBtn.addEventListener('click', () => {
-  if(current < total-1){ current++; showPage(current, 'next'); spawnHearts(); }
-});
+prevBtn.addEventListener('click', ()=>{ if(current>0){current--; showPage(current,'prev'); spawnHearts();} });
+nextBtn.addEventListener('click', ()=>{ if(current<total-1){current++; showPage(current,'next'); spawnHearts();} });
 
-/* ============ TOUCH SWIPE ============ */
 let startX = 0;
-const bookEl = document.getElementById('book');
-bookEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
-bookEl.addEventListener('touchend', e => {
+document.getElementById('book').addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; },{passive:true});
+document.getElementById('book').addEventListener('touchend', e=>{
   const dx = e.changedTouches[0].clientX - startX;
-  if(dx < -45 && current < total-1){ current++; showPage(current,'next'); spawnHearts(); }
-  if(dx >  45 && current > 0)      { current--; showPage(current,'prev'); spawnHearts(); }
+  if(dx<-45 && current<total-1){current++; showPage(current,'next'); spawnHearts();}
+  if(dx> 45 && current>0)      {current--; showPage(current,'prev'); spawnHearts();}
 });
 
-/* ============ KEYBOARD ============ */
-document.addEventListener('keydown', e => {
-  if(e.key === 'ArrowRight' && current < total-1){ current++; showPage(current,'next'); spawnHearts(); }
-  if(e.key === 'ArrowLeft'  && current > 0)      { current--; showPage(current,'prev'); spawnHearts(); }
-});
-
-/* ============ HEART BURST ============ */
-function spawnHearts(){
-  const emojis = ['❤️','🌹','✨','💕','🌸'];
-  const cx = window.innerWidth/2;
-  const cy = window.innerHeight/2;
-  for(let i=0;i<6;i++){
-    setTimeout(()=>{
-      const h = document.createElement('div');
-      h.className = 'heart-burst';
-      h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-      const angle = Math.random()*Math.PI*2;
-      const dist  = 80 + Math.random()*120;
-      h.style.setProperty('--tx', Math.cos(angle)*dist+'px');
-      h.style.setProperty('--ty', Math.sin(angle)*dist+'px');
-      h.style.left = cx - 11 + 'px';
-      h.style.top  = cy - 11 + 'px';
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(), 1200);
-    }, i*60);
-  }
-}
-
-/* ============ OPEN BUTTON ============ */
-document.getElementById('openBtn').addEventListener('click', function() {
-  const overlay = document.getElementById('overlay');
-  const audio   = document.getElementById('bgm');
-
-  // Fade out overlay
-  overlay.style.transition = 'opacity 0.8s ease';
-  overlay.style.opacity    = '0';
-  setTimeout(() => { overlay.style.display = 'none'; }, 800);
-
-  // Play music — must be called synchronously inside user gesture for iOS
-  audio.volume = 0.85;
-  audio.load();
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(function() {
-      // iOS sometimes needs a second tap — add a one-time fallback listener
-      document.addEventListener('touchstart', function resumeAudio() {
-        audio.play();
-        document.removeEventListener('touchstart', resumeAudio);
-      }, { once: true });
-    });
-  }
-
-  spawnHearts();
-});
-
-updateNav();
-</script>
-</body>
-</html>
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight' && current<total-1){current++; showPage(current,'next'); spawnHearts();}
+  if(e.key==='ArrowLeft'  && current>0)     {current--; showPage(current,'p
