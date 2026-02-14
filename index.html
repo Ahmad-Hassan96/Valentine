@@ -622,7 +622,7 @@ That is everything.</p>
     </div>
 
     <!-- PAGE 4 -->
-    <div ="page hidden" id="p4">
+    <div class="page hidden" id="p4">
       <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
       <div class="page-content">
         <p class="chapter-label">Chapter IV</p>
@@ -631,7 +631,43 @@ That is everything.</p>
         <p class="chapter-body">I have tried to find the right words
 for a long time.
 
+The honest ones are simple:
 
+You matter to me
+in a way that doesn't need
+<em>an occasion</em> to be true.
+
+Not just on days like today.
+Not just when it's easy.
+
+Always.</p>
+      </div>
+      <div class="rose-wm">❤</div>
+      <div class="page-number">— iv —</div>
+    </div>
+
+    <!-- PAGE 5: FINAL -->
+    <div class="page hidden" id="p5">
+      <svg class="corner-ornament" viewBox="0 0 40 40"><path d="M2 2 Q20 2 38 20 Q20 38 2 38 Z" fill="none" stroke="#c9975a" stroke-width="1.5" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="#c9975a" opacity="0.4"/></svg>
+      <div class="page-content" style="text-align:center;">
+        <p class="chapter-label">Valentine's Day</p>
+        <span class="final-heart">❤️</span>
+        <div class="divider" style="margin: 12px auto;"></div>
+        <p class="chapter-body" style="text-align:center;">
+Happy Valentine's Day, <em>Zainab.</em>
+
+May today feel like
+the warmth you give
+to everyone around you —
+
+finally returned to you,
+completely.</p>
+        <p class="signature">— Always yours ❤️</p>
+      </div>
+      <div class="page-number">— fin —</div>
+    </div>
+
+  </div><!-- /book -->
 </div><!-- /scene -->
 
 <!-- NAV -->
@@ -705,4 +741,122 @@ const progressEl = document.getElementById('progress');
 pages.forEach((_,i) => {
   const d = document.createElement('div');
   d.className = 'dot' + (i===0?' active':'');
-  progressEl.appen
+  progressEl.appendChild(d);
+});
+const dots = [...progressEl.querySelectorAll('.dot')];
+
+function updateNav(){
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+  dots.forEach((d,i) => d.classList.toggle('active', i===current));
+}
+
+function showPage(n, dir){
+  // animate content out then in
+  const page = pages[n];
+  const content = page.querySelector('.page-content');
+
+  // hide all pages beyond n
+  pages.forEach((p,i) => {
+    p.classList.toggle('hidden', i > n);
+  });
+
+  // restart content animation
+  if(content){
+    content.style.animation = 'none';
+    content.offsetHeight; // reflow
+    content.style.animation = '';
+  }
+
+  // sparkle effect on left spine area
+  if(dir === 'next'){
+    spawnSparkle(52 + Math.random()*30, 80 + Math.random()*300);
+  }
+
+  updateNav();
+}
+
+function spawnSparkle(x, y){
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.style.cssText = `left:${x}px;top:${y}px;width:18px;height:18px;`;
+  document.getElementById('scene').appendChild(s);
+  setTimeout(() => s.remove(), 700);
+}
+
+prevBtn.addEventListener('click', () => {
+  if(current > 0){ current--; showPage(current, 'prev'); spawnHearts(); }
+});
+nextBtn.addEventListener('click', () => {
+  if(current < total-1){ current++; showPage(current, 'next'); spawnHearts(); }
+});
+
+/* ============ TOUCH SWIPE ============ */
+let startX = 0;
+const bookEl = document.getElementById('book');
+bookEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+bookEl.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - startX;
+  if(dx < -45 && current < total-1){ current++; showPage(current,'next'); spawnHearts(); }
+  if(dx >  45 && current > 0)      { current--; showPage(current,'prev'); spawnHearts(); }
+});
+
+/* ============ KEYBOARD ============ */
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight' && current < total-1){ current++; showPage(current,'next'); spawnHearts(); }
+  if(e.key === 'ArrowLeft'  && current > 0)      { current--; showPage(current,'prev'); spawnHearts(); }
+});
+
+/* ============ HEART BURST ============ */
+function spawnHearts(){
+  const emojis = ['❤️','🌹','✨','💕','🌸'];
+  const cx = window.innerWidth/2;
+  const cy = window.innerHeight/2;
+  for(let i=0;i<6;i++){
+    setTimeout(()=>{
+      const h = document.createElement('div');
+      h.className = 'heart-burst';
+      h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      const angle = Math.random()*Math.PI*2;
+      const dist  = 80 + Math.random()*120;
+      h.style.setProperty('--tx', Math.cos(angle)*dist+'px');
+      h.style.setProperty('--ty', Math.sin(angle)*dist+'px');
+      h.style.left = cx - 11 + 'px';
+      h.style.top  = cy - 11 + 'px';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 1200);
+    }, i*60);
+  }
+}
+
+/* ============ OPEN BUTTON ============ */
+document.getElementById('openBtn').addEventListener('click', function() {
+  const overlay = document.getElementById('overlay');
+  const audio   = document.getElementById('bgm');
+
+  // Fade out overlay
+  overlay.style.transition = 'opacity 0.8s ease';
+  overlay.style.opacity    = '0';
+  setTimeout(() => { overlay.style.display = 'none'; }, 800);
+
+  // Play music — must be called synchronously inside user gesture for iOS
+  audio.volume = 0.85;
+  audio.load();
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(function() {
+      // iOS sometimes needs a second tap — add a one-time fallback listener
+      document.addEventListener('touchstart', function resumeAudio() {
+        audio.play();
+        document.removeEventListener('touchstart', resumeAudio);
+      }, { once: true });
+    });
+  }
+
+  spawnHearts();
+});
+
+updateNav();
+</script>
+</body>
+</html>
